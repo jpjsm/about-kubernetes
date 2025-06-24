@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cfy-manager-aio-oppy
+description: Cloudify manager aio
+version: 0.1.2

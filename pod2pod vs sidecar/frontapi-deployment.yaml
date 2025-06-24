@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontapi
+  labels:
+    app: frontapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontapi
+  template:
+    metadata:
+      labels:
+        app: frontapi
+    spec:
+      containers:
+      - image: jpjofresm/frontapi:1.0
+        name: frontapi
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+          requests: 
+            memory: "500Mi"
+            cpu: "500m"

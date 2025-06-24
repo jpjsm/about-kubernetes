@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: jpjofre
+  name: bundleserver
+  labels:
+    app: bundleserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bundleserver
+  template:
+    metadata:
+      labels:
+        app: bundleserver
+    spec:
+      containers:
+      - image: jpjofresm/bundle-server:latest
+        name: bundleserver
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+          requests: 
+            memory: "500Mi"
+            cpu: "500m"
+        volumeMounts:
+        - name: bundlesfolder
+          mountPath: /var/data
+      volumes:
+      - name: bundlesfolder
+        hostPath:
+          # directory location on host
+          path: /var/bundles-folder
+          # this field is optional
+          type: Directory      

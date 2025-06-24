@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontapi-with-sidecar
+  labels:
+    app: frontapi-with-sidecar
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontapi-with-sidecar
+  template:
+    metadata:
+      labels:
+        app: frontapi-with-sidecar
+    spec:
+      containers:
+      - image: jpjofresm/frontapi:1.0
+        name: frontapi-with-sidecar
+        env:
+        - name: IS_BACKAPI_SIDECAR
+          value: "true"
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+          requests: 
+            memory: "500Mi"
+            cpu: "500m"
+      - image: jpjofresm/backapi:1.0
+        name: backapi-as-sidecar
+        ports:
+        - containerPort: 10080
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+          requests: 
+            memory: "500Mi"
+            cpu: "500m"            

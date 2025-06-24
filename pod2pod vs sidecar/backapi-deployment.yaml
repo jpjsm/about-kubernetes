@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backapi
+  labels:
+    app: backapi
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backapi
+  template:
+    metadata:
+      labels:
+        app: backapi
+    spec:
+      containers:
+      - image: jpjofresm/backapi:1.0
+        name: backapi
+        ports:
+        - containerPort: 10080
+        resources:
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+          requests: 
+            memory: "500Mi"
+            cpu: "500m"
